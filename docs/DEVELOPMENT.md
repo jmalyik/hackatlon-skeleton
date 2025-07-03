@@ -208,3 +208,20 @@ python manage.py test
 - Bootstrap documentation: https://getbootstrap.com/docs/
 - Django REST Framework: https://www.django-rest-framework.org/
 - MDN Web Docs: https://developer.mozilla.org/
+
+### Django Command-Line Interface (CLI)
+
+Django provides a powerful CLI via the `manage.py` script in your backend directory. You can use it to manage your project, database, and more.
+
+**Common commands:**
+
+- `python manage.py runserver` — Start the development server
+- `python manage.py migrate` — Apply database migrations
+- `python manage.py makemigrations` — Create new migrations from model changes
+- `python manage.py createsuperuser` — Create an admin user
+- `python manage.py shell` — Open a Django shell
+- `python manage.py test` — Run tests
+- `python manage.py collectstatic` — Collect static files for production
+- `python manage.py help` — List all available commands
+
+For a full list and details, see the [official Django management commands documentation](https://docs.djangoproject.com/en/stable/ref/django-admin/).
