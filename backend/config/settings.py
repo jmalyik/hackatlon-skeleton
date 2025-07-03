@@ -88,9 +88,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# Default to SQLite for development, PostgreSQL for production
+default_db_url = config('DATABASE_URL', default='sqlite:///db.sqlite3')
+
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('DATABASE_URL', default='sqlite:///db.sqlite3'),
+        default=default_db_url,
         conn_max_age=600,
         conn_health_checks=True,
     )
@@ -185,6 +188,7 @@ SPECTACULAR_SETTINGS = {
 }
 
 # Cache configuration
+# Default to dummy cache for development if Redis is not available
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
@@ -195,6 +199,18 @@ CACHES = {
     }
 }
 
+# Fallback to dummy cache if Redis is not available (for development)
+if config('REDIS_URL', default='') == '':
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        }
+    }
+
 # Session configuration
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 SESSION_CACHE_ALIAS = 'default'
+
+# Fallback to database sessions if cache is not available
+if config('REDIS_URL', default='') == '':
+    SESSION_ENGINE = 'django.contrib.sessions.backends.db'

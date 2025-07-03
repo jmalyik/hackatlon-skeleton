@@ -51,6 +51,8 @@ hackatlon-skeleton/
 - Docker & Docker Compose
 - Git
 
+**Note for Windows users**: See [WINDOWS_SETUP.md](WINDOWS_SETUP.md) for Windows-specific setup instructions.
+
 ### Quick Start
 
 1. **Clone and setup**:
@@ -64,7 +66,10 @@ hackatlon-skeleton/
    cd backend
    python -m venv venv
    venv\Scripts\activate  # Windows
-   pip install -r requirements.txt
+   # For Windows development (to avoid PostgreSQL dependencies):
+   pip install -r requirements-dev.txt
+   # OR for full production setup:
+   # pip install -r requirements.txt
    python manage.py migrate
    python manage.py createsuperuser
    python manage.py runserver
