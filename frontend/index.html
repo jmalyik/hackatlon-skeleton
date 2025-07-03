@@ -36,46 +36,96 @@
         </div>
     </nav>
 
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="text-center">
-                    <h1 class="display-4 mb-4">Welcome to Hackathon Starter</h1>
-                    <p class="lead">A complete full-stack web application starter with Django backend and plain JavaScript frontend.</p>
-                </div>
-                
-                <div class="card mt-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Public API Test</h5>
-                        <p class="card-text">Test the public /hello endpoint:</p>
-                        <button class="btn btn-primary" onclick="testPublicAPI()">Test Public API</button>
-                        <div id="publicApiResult" class="mt-3"></div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 hero-content text-center">
+                    <h1 class="hero-title fade-in">Welcome to Hackathon Starter</h1>
+                    <p class="hero-subtitle fade-in">A complete full-stack web application starter with Django backend and modern JavaScript frontend. Built for speed, scalability, and developer experience.</p>
+                    <div class="hero-buttons fade-in">
+                        <a href="register.html" class="btn btn-success btn-lg">Get Started</a>
+                        <a href="login.html" class="btn btn-outline-primary btn-lg">Sign In</a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="row mt-4">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Features</h5>
-                                <ul class="list-unstyled">
-                                    <li>✅ Django + DRF Backend</li>
-                                    <li>✅ Token-based Authentication</li>
-                                    <li>✅ Bootstrap UI</li>
-                                    <li>✅ Swagger API Documentation</li>
-                                    <li>✅ Docker Support</li>
-                                </ul>
-                            </div>
-                        </div>
+    <div class="container main-content">
+        <div class="row justify-content-center section-spacing">
+            <div class="col-lg-10">
+                <div class="card slide-up">
+                    <div class="card-body">
+                        <h5 class="card-title">🚀 Quick API Test</h5>
+                        <p class="card-text">Test the public /hello endpoint to verify your backend connection:</p>
+                        <button class="btn btn-primary" onclick="testPublicAPI()">Test Public API</button>
+                        <div id="publicApiResult" class="api-result mt-3" style="display: none;"></div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Get Started</h5>
-                                <p class="card-text">Ready to start your hackathon project?</p>
-                                <a href="register.html" class="btn btn-success">Create Account</a>
-                                <a href="login.html" class="btn btn-outline-primary">Login</a>
-                            </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row section-spacing">
+            <div class="col-lg-4 mb-4">
+                <div class="card feature-card slide-up">
+                    <div class="card-body">
+                        <div class="feature-icon">
+                            <span>⚡</span>
+                        </div>
+                        <h5 class="card-title">Lightning Fast</h5>
+                        <ul class="feature-list">
+                            <li>Django + DRF Backend</li>
+                            <li>Token-based Authentication</li>
+                            <li>RESTful API Design</li>
+                            <li>Optimized Performance</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card feature-card slide-up">
+                    <div class="card-body">
+                        <div class="feature-icon">
+                            <span>🎨</span>
+                        </div>
+                        <h5 class="card-title">Modern UI</h5>
+                        <ul class="feature-list">
+                            <li>Responsive Bootstrap Design</li>
+                            <li>Clean & Intuitive Interface</li>
+                            <li>Mobile-First Approach</li>
+                            <li>Accessibility Ready</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card feature-card slide-up">
+                    <div class="card-body">
+                        <div class="feature-icon">
+                            <span>🔧</span>
+                        </div>
+                        <h5 class="card-title">Developer Ready</h5>
+                        <ul class="feature-list">
+                            <li>Swagger API Documentation</li>
+                            <li>Docker Support</li>
+                            <li>Easy Deployment</li>
+                            <li>Extensible Architecture</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card slide-up">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Ready to Build Something Amazing?</h5>
+                        <p class="card-text">Join thousands of developers who have kickstarted their projects with our starter template. Get up and running in minutes, not hours.</p>
+                        <div class="mt-4">
+                            <a href="register.html" class="btn btn-success btn-lg me-3">Create Your Account</a>
+                            <a href="login.html" class="btn btn-outline-primary btn-lg">Sign In</a>
                         </div>
                     </div>
                 </div>

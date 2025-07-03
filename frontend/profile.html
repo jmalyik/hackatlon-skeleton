@@ -30,24 +30,38 @@
         </div>
     </nav>
 
-    <div class="container mt-5">
+    <div class="profile-header">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <div class="profile-avatar">
+                        <span id="userAvatar">👤</span>
+                    </div>
+                    <h1 id="userWelcome">Welcome to your Profile</h1>
+                    <p id="userSubtitle">Manage your account and explore our features</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container main-content">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
+            <div class="col-lg-8">
+                <div class="card fade-in">
                     <div class="card-body">
-                        <h2 class="card-title">Welcome to your Profile</h2>
-                        <div id="userInfo" class="mb-4">
+                        <h5 class="card-title">Account Information</h5>
+                        <div id="userInfo" class="user-info-card">
                             <p><strong>Loading user information...</strong></p>
                         </div>
-                        
-                        <div class="card mt-4">
-                            <div class="card-body">
-                                <h5 class="card-title">Authenticated API Test</h5>
-                                <p class="card-text">Test the authenticated /hello-dear endpoint:</p>
-                                <button class="btn btn-primary" onclick="testAuthenticatedAPI()">Test Authenticated API</button>
-                                <div id="authenticatedApiResult" class="mt-3"></div>
-                            </div>
-                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4 fade-in">
+                    <div class="card-body">
+                        <h5 class="card-title">🔐 API Testing</h5>
+                        <p class="card-text">Test the authenticated /hello-dear endpoint to verify your session:</p>
+                        <button class="btn btn-primary" onclick="testAuthenticatedAPI()">Test Authenticated API</button>
+                        <div id="authenticatedApiResult" class="api-result mt-3" style="display: none;"></div>
                     </div>
                 </div>
             </div>
@@ -68,17 +82,45 @@
             try {
                 const userInfo = await getCurrentUser();
                 if (userInfo) {
+                    // Update header with user info
+                    document.getElementById('userWelcome').textContent = `Welcome, ${userInfo.first_name || userInfo.username}!`;
+                    document.getElementById('userSubtitle').textContent = `Logged in as ${userInfo.username}`;
+                    
+                    // Update avatar with first letter of name
+                    const avatar = userInfo.first_name ? userInfo.first_name.charAt(0).toUpperCase() : 
+                                  userInfo.username.charAt(0).toUpperCase();
+                    document.getElementById('userAvatar').textContent = avatar;
+                    
+                    // Update user info display
                     document.getElementById('userInfo').innerHTML = `
-                        <p><strong>Username:</strong> ${userInfo.username}</p>
-                        <p><strong>Email:</strong> ${userInfo.email}</p>
-                        <p><strong>First Name:</strong> ${userInfo.first_name || 'Not provided'}</p>
-                        <p><strong>Last Name:</strong> ${userInfo.last_name || 'Not provided'}</p>
-                        <p><strong>Member since:</strong> ${new Date(userInfo.date_joined).toLocaleDateString()}</p>
-                        <p><strong>Role:</strong> ${userInfo.is_staff ? 'Admin' : 'User'}</p>
+                        <div class="info-item">
+                            <span class="info-label">Username</span>
+                            <span class="info-value">${userInfo.username}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Email</span>
+                            <span class="info-value">${userInfo.email}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">First Name</span>
+                            <span class="info-value">${userInfo.first_name || 'Not provided'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Last Name</span>
+                            <span class="info-value">${userInfo.last_name || 'Not provided'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Member Since</span>
+                            <span class="info-value">${new Date(userInfo.date_joined).toLocaleDateString()}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Role</span>
+                            <span class="info-value">${userInfo.is_staff ? 'Admin' : 'User'}</span>
+                        </div>
                     `;
                 }
             } catch (error) {
-                document.getElementById('userInfo').innerHTML = '<p class="text-danger">Failed to load user information.</p>';
+                document.getElementById('userInfo').innerHTML = '<div class="alert alert-danger">Failed to load user information.</div>';
             }
         }
 
@@ -88,16 +130,32 @@
         // Test authenticated API
         async function testAuthenticatedAPI() {
             const resultDiv = document.getElementById('authenticatedApiResult');
+            const button = document.querySelector('button[onclick="testAuthenticatedAPI()"]');
+            
+            // Show loading state
+            if (button) {
+                button.disabled = true;
+                button.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Testing...';
+            }
+            
             try {
                 const response = await apiCall('/api/hello-dear/', 'GET', null, true);
+                resultDiv.style.display = 'block';
                 resultDiv.innerHTML = `<div class="alert alert-success">
-                    <strong>API Response:</strong><br>
+                    <strong>✅ API Response:</strong><br>
                     <pre>${JSON.stringify(response, null, 2)}</pre>
                 </div>`;
             } catch (error) {
+                resultDiv.style.display = 'block';
                 resultDiv.innerHTML = `<div class="alert alert-danger">
-                    <strong>API Error:</strong> ${error.message}
+                    <strong>❌ API Error:</strong> ${error.message}
                 </div>`;
+            } finally {
+                // Reset button state
+                if (button) {
+                    button.disabled = false;
+                    button.innerHTML = 'Test Authenticated API';
+                }
             }
         }
     </script>

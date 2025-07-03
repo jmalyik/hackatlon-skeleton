@@ -5,7 +5,32 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add fade-in animation to main content
     document.body.classList.add('fade-in');
+    
+    // Initialize animations
+    initializeAnimations();
 });
+
+// Initialize scroll-based animations
+function initializeAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('slide-up');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all cards for animation
+    document.querySelectorAll('.card').forEach(card => {
+        observer.observe(card);
+    });
+}
 
 // Update navigation based on authentication status
 function updateNavigation() {

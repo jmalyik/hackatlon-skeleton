@@ -1,5 +1,5 @@
 // API communication utilities
-const API_BASE_URL = 'http://localhost:8000';
+// API_BASE_URL is defined in auth.js
 
 // Generic API call function
 async function apiCall(endpoint, method = 'GET', body = null, requiresAuth = false) {
@@ -45,32 +45,62 @@ async function apiCall(endpoint, method = 'GET', body = null, requiresAuth = fal
 // Test public API endpoint
 async function testPublicAPI() {
     const resultDiv = document.getElementById('publicApiResult');
+    const button = document.querySelector('button[onclick="testPublicAPI()"]');
+    
+    // Show loading state
+    if (button) {
+        button.disabled = true;
+        button.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Testing...';
+    }
+    
     try {
         const response = await apiCall('/api/hello/', 'GET', null, false);
+        resultDiv.style.display = 'block';
         resultDiv.innerHTML = `<div class="alert alert-success">
-            <strong>API Response:</strong><br>
+            <strong>✅ API Response:</strong><br>
             <pre>${JSON.stringify(response, null, 2)}</pre>
         </div>`;
     } catch (error) {
+        resultDiv.style.display = 'block';
         resultDiv.innerHTML = `<div class="alert alert-danger">
-            <strong>API Error:</strong> ${error.message}
+            <strong>❌ API Error:</strong> ${error.message}
         </div>`;
+    } finally {
+        // Reset button state
+        if (button) {
+            button.disabled = false;
+            button.innerHTML = 'Test Public API';
+        }
     }
 }
 
 // Test authenticated API endpoint
 async function testAuthenticatedAPI() {
     const resultDiv = document.getElementById('authenticatedApiResult');
+    const button = document.querySelector('button[onclick="testAuthenticatedAPI()"]');
+    
+    // Show loading state
+    if (button) {
+        button.disabled = true;
+        button.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Testing...';
+    }
+    
     try {
         const response = await apiCall('/api/hello-dear/', 'GET', null, true);
         resultDiv.innerHTML = `<div class="alert alert-success">
-            <strong>API Response:</strong><br>
+            <strong>✅ API Response:</strong><br>
             <pre>${JSON.stringify(response, null, 2)}</pre>
         </div>`;
     } catch (error) {
         resultDiv.innerHTML = `<div class="alert alert-danger">
-            <strong>API Error:</strong> ${error.message}
+            <strong>❌ API Error:</strong> ${error.message}
         </div>`;
+    } finally {
+        // Reset button state
+        if (button) {
+            button.disabled = false;
+            button.innerHTML = 'Test Authenticated API';
+        }
     }
 }
 
